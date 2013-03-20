@@ -23,7 +23,7 @@ It makes your life easy when you develop forms and your app use [mongoid](https:
   # config/initializers/mongoid_form_config.rb
   ...
   # this option add after label text "<div class=\"flag flags-en\" />" to each locale fo localized fields 
-  # you should styling .flag > .flags-en (.flags-ru etc.) in your css.
+  # you should styling .flag and .flags-en (.flags-ru etc.) in your css.
   flag_for_localized  true
   ...
 ```
