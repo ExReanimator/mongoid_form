@@ -17,7 +17,7 @@ module MongoidForm
     end
 
     def error_notification
-      if any_errors?
+      if any_errors? && wrapper.main_error_i18n_key.present?
         alert { I18n::t(*wrapper.main_error_i18n_key, model: @object.class.model_name.human, count: @object.errors.size) }
       end
     end
@@ -105,7 +105,11 @@ module MongoidForm
       end
 
       def error(name)
-        has_error?(name) ? wrap(get_error(name), wrapper.error_block) : ''
+        if has_error?(name)
+          wrapper.error_block.present? ? wrap(get_error(name), wrapper.error_block) : get_error(name)
+        else
+          ''
+        end
       end
 
       def get_error(name)
