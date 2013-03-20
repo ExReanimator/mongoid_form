@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["exreanimator@gmail.com"]
   spec.description   = %q{It makes your life easy when you develop forms and your app use mongoid}
   spec.summary       = %q{Form builder for apps which use mongoid}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/ExReanimator/mongoid_form"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
