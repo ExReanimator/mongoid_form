@@ -79,6 +79,8 @@ module MongoidForm
         result = ''
         I18n.available_locales.each do |locale|
           field = builder.object_name.scan(/(.*)\[(.*)_translations\]/).join('.')
+          Rails.logger.info "$$$"*10
+          Rails.logger.info wrapper.flag_for_localized.inspect
           flag = wrapper.flag_for_localized.first ? wrap('', [:div, class: "flag flags-#{locale.to_s}"]) : ''
           label = builder.label locale.to_sym, *wrapper.label_options do
             asterisk(name) + I18n::t("mongoid.attributes.#{field}") + flag
@@ -101,7 +103,7 @@ module MongoidForm
       end
 
       def asterisk(name)
-        required?(name) && wrapper.add_if_required ? @template.content_tag(*wrapper.add_if_required) + ' ' : ''
+        required?(name) && wrapper.add_if_required.present? ? @template.content_tag(*wrapper.add_if_required) + ' ' : ''
       end
 
       def error(name)
@@ -119,11 +121,11 @@ module MongoidForm
       end
 
       def input_wrapped(input, name)
-        wrapper.input_wrapper ? wrap((input + error(name)), wrapper.input_wrapper) : (input + error(name))
+        wrapper.input_wrapper.present? ? wrap((input + error(name)), wrapper.input_wrapper) : (input + error(name))
       end
 
       def wrap_group(input, name, label)
-        if wrapper.group_wrapper          
+        if wrapper.group_wrapper.present?      
           group_wrapper = wrapper.group_wrapper.dup
           
           if has_error?(name) && wrapper.group_error_class
