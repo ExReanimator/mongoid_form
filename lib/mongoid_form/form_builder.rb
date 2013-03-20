@@ -79,7 +79,7 @@ module MongoidForm
         result = ''
         I18n.available_locales.each do |locale|
           field = builder.object_name.scan(/(.*)\[(.*)_translations\]/).join('.')
-          flag = wrapper.flag_for_localized ? wrap('', [:div, class: "flag flags-#{locale.to_s}"]) : ''
+          flag = wrapper.flag_for_localized.first ? wrap('', [:div, class: "flag flags-#{locale.to_s}"]) : ''
           label = builder.label locale.to_sym, *wrapper.label_options do
             asterisk(name) + I18n::t("mongoid.attributes.#{field}") + flag
           end

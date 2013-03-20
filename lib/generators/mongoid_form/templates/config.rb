@@ -9,6 +9,7 @@ MongoidForm.setup do |config|
     add_if_required     :abbr, '*', title: I18n::t('required')
     error_block         :span, class: 'help-inline'
     input_wrapper       :div, class: 'controls'
+    flag_for_localized  true
   end
 
 end

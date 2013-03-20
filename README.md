@@ -17,6 +17,17 @@ It makes your life easy when you develop forms and your app use [mongoid](https:
     ...
 ```
 
+### Can show flag block with each localized fields
+
+``` ruby
+  # config/initializers/mongoid_form_config.rb
+  ...
+  # this option add after label text "<div class=\"flag flags-en\" />" to each locale fo localized fields 
+  # you should styling .flag > .flags-en (.flags-ru etc.) in your css.
+  flag_for_localized  true
+  ...
+```
+
 ### Shows asterisk for required fields!
 
 ``` ruby
@@ -68,6 +79,7 @@ MongoidForm.setup do |config|
     add_if_required     :abbr, '*', title: I18n::t('required')
     error_block         :span, class: 'help-inline'
     input_wrapper       :div, class: 'controls'
+    flag_for_localized  true
   end
 
 end
