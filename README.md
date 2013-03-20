@@ -63,6 +63,20 @@ Run installer for generate sample config:
     = f.input :visible, :checkbox   # pass type of field  
 ```
 
+### Types of fields supported:
+  
+  * ```:text```
+  * ```:password```
+  * ```:select```
+  * ```:number```
+  * ```:text_area```
+  * ```:check_box```
+  * ```:hidden```
+  * ```:file```
+
+If type is ```:hidden``` it will not be wrapped!
+
+
 ## Config
 
 All options for this time:
@@ -84,20 +98,6 @@ MongoidForm.setup do |config|
 
 end
 ```
-
-### Types of fields supported:
-  
-  * ```:text```
-  * ```:password```
-  * ```:select```
-  * ```:number```
-  * ```:text_area```
-  * ```:check_box```
-  * ```:hidden```
-  * ```:file```
-
-If type is ```:hidden``` it will not be wrapped!
-
 
 ## Contributing
 
