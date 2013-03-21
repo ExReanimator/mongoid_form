@@ -8,12 +8,19 @@ module MongoidForm
       object = @object.send(field_name).try(:empty?) ? nil : @object.send(field_name)
       name = "#{object_name}[#{field_name}]"
 
-      @template.fields_for(name, object, &block).html_safe
+      @template.fields_for(name, object, &block)
     end
 
-    def localized_text_field(attribute, options = {})
+    def localized_field(type, attribute, options = {})
       attribute, options = value_field(attribute, options)
-      text_field(attribute, options).html_safe
+      case type
+      when :text
+        text_field(attribute, options)
+      when :text_area
+        text_area(attribute, options)
+      else
+        ""
+      end
     end
 
     def error_notification
@@ -74,16 +81,16 @@ module MongoidForm
         wrap_group(input, name, label)
       end
 
-      def wrap_localized_fields(builder)
+      def wrap_localized_fields(builder, type, options)
         name = builder.object_name.scan(/\[(.*)_translations\]/).join.to_sym
         result = ''
         I18n.available_locales.each do |locale|
           field = builder.object_name.scan(/(.*)\[(.*)_translations\]/).join('.')
           flag = wrapper.flag_for_localized.first ? wrap('', [:div, class: "flag flags-#{locale.to_s}"]) : ''
           label = builder.label locale.to_sym, *wrapper.label_options do
-            asterisk(name) + I18n::t("mongoid.attributes.#{field}") + flag
+            asterisk(name).html_safe + I18n::t("mongoid.attributes.#{field}") + flag
           end
-          input = builder.localized_text_field locale.to_sym
+          input = builder.localized_field type, locale.to_sym, options
 
           result << wrap_group(input, name, label)
         end
