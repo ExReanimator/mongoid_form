@@ -9,18 +9,25 @@ It makes your life easy when you develop forms and your app use [mongoid](https:
 ``` ruby  
   # app/models/category.rb
   field :name, localize: true
+  field :content, localize: true
 
   # views/category/_form.rb
   = form_for @category, wrapper: :default, html: { class: 'form-horizontal' } do |f|
-    = f.localized :name 
+    # text_field type by default
     # generates input fields for each locales in your config.i18n.available_locales
+    = f.localized :name
+    
+    # pass text_area type and some class for example
+    # generates text_area fields for each locales in your config.i18n.available_locales
+    = f.localized :content, :text_area, class: "tinymce"
+    
     ...
 ```
 
 ### Can show flag block with each localized fields
 
+``config/initializers/mongoid_form_config.rb``
 ``` ruby
-  # config/initializers/mongoid_form_config.rb
   ...
   # this option add after label text "<div class=\"flag flags-en\" />" to each locale fo localized fields 
   # you should styling .flag and .flags-en (.flags-ru etc.) in your css.
@@ -30,8 +37,8 @@ It makes your life easy when you develop forms and your app use [mongoid](https:
 
 ### Shows asterisk for required fields!
 
+``config/initializers/mongoid_form_config.rb``
 ``` ruby
-  # config/initializers/mongoid_form_config.rb
   ...
   # this option add before label text "<abbr title=\"required field\">*</abbr>" to required fields 
   add_if_required :abbr, '*', title: I18n::t('required')
