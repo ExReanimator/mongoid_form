@@ -62,12 +62,19 @@ Run installer for generate sample config:
 ## Usage
 
 ``` haml
-  = form_for @category, wrapper: :backend, html: { class: 'form-horizontal' } do |f|
+  = form_for @category, wrapper: :default, html: { class: 'form-horizontal' } do |f|
     = f.error_notification
       
     = f.localized :name
-    = f.input :alias                # text_field by default
-    = f.input :visible, :checkbox   # pass type of field  
+    = f.input :alias                 # text_field by default
+    = f.input :visible, :check_box   # passed type of field
+
+    = f.association :location do |lf|
+      = f.input :country  # -> category[location_attributes][country]
+      = f.input :city     # -> category[location_attributes][city]
+
+    = f.radios_from_collection :gender, collection: { 1 => t('genders.male'), 2 => t('genders.female') }
+
 ```
 
 ### Types of fields supported:
@@ -92,15 +99,17 @@ All options for this time:
 MongoidForm.setup do |config|
   
   config.wrapper :default do
-    alert_error_wrapper :div, class: 'alert alert-error'
-    main_error_i18n_key 'errors.form.error_notification'
-    group_wrapper       :div, class: 'control-group'
-    group_error_class   'error'
-    label_options       class: 'control-label'
-    add_if_required     :abbr, '*', title: I18n::t('required')
-    error_block         :span, class: 'help-inline'
-    input_wrapper       :div, class: 'controls'
-    flag_for_localized  true
+    alert_error_wrapper :div, class: 'alert alert-error'       # wrapper for form main error
+    main_error_i18n_key 'errors.form.error_notification'       # i18n key for form main error 
+    group_wrapper       :div, class: 'control-group'           # it wrap group of label + input
+    group_error_class   'error'                                # that class will added to group wrapper if errors for field
+    label_options       class: 'control-label'                 # options for label field
+    add_if_required     :abbr, '*', title: I18n::t('required') # appears before label text if field is required
+    error_block         :span, class: 'help-inline'            # element containing error message, appears after input
+    input_wrapper       :div, class: 'controls'                # wrapper element for each input
+    flag_for_localized  true                                   # show block with class "flag flags-#{locale}" after label text 
+                                                               # of localized fields
+    radios_wrapper      :div, class: 'radios'                  # wrapper for radios group
   end
 
 end

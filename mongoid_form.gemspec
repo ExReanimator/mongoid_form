@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = MongoidForm::VERSION
   spec.authors       = ["Ivan Teplyakov"]
   spec.email         = ["exreanimator@gmail.com"]
-  spec.description   = %q{It makes your life easy when you develop forms and your app use mongoid}
-  spec.summary       = %q{Form builder for apps which use mongoid}
+  spec.description   = %q{Form builder for apps which use mongoid}
+  spec.summary       = %q{It makes your life easy when you develop forms and your apps uses mongoid}
   spec.homepage      = "https://github.com/ExReanimator/mongoid_form"
   spec.license       = "MIT"
 

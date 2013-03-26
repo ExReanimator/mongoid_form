@@ -12,6 +12,7 @@ module MongoidForm
     end
 
     def localized_field(type, attribute, options = {})
+      @type = type
       attribute, options = value_field(attribute, options)
       case type
       when :text
@@ -51,6 +52,7 @@ module MongoidForm
     private
 
       def factory(type, name, options = {})
+        @type = type
         input = case type
           when :text
             text_field name, options
@@ -74,7 +76,13 @@ module MongoidForm
       end
 
       def wrap_field(input, name)
-        label = label(name, *wrapper.label_options) do
+        label_options = wrapper.label_options.dup
+        extracted = label_options.extract_options!
+        extracted_class = extracted[:class] ? extracted[:class] + ' ' : ''
+        options = extracted.merge(class: extracted_class + @type.to_s)
+        label_options << options
+        
+        label = label(name, *label_options) do
           asterisk(name) + @object.class.human_attribute_name(name)
         end
 
@@ -139,13 +147,14 @@ module MongoidForm
           
           if has_error?(name) && wrapper.group_error_class
             extracted = group_wrapper.extract_options!
-            options = extracted.merge(class: extracted[:class] + " " + wrapper.group_error_class.first)
+            extracted_class = extracted[:class] ? extracted[:class] + ' ' : ''
+            options = extracted.merge(class: extracted_class + wrapper.group_error_class.first)
             group_wrapper << options
           end
 
           wrap (label + input_wrapped(input, name)), group_wrapper
         else
-          (label + input_wrapped(input, name))
+          label + input_wrapped(input, name)
         end
       end
 

@@ -10,6 +10,7 @@ MongoidForm.setup do |config|
     error_block         :span, class: 'help-inline'
     input_wrapper       :div, class: 'controls'
     flag_for_localized  true
+    radios_wrapper      :div, class: 'radios'
   end
 
 end
