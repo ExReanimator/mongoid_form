@@ -1,4 +1,4 @@
-# MongoidForm ``*alpha`` [![Gem Version](https://badge.fury.io/rb/mongoid_form.png)](http://badge.fury.io/rb/mongoid_form) [![Code Climate](https://codeclimate.com/github/ExReanimator/mongoid_form.png)](https://codeclimate.com/github/ExReanimator/mongoid_form)
+# MongoidForm [![Gem Version](https://badge.fury.io/rb/mongoid_form.png)](http://badge.fury.io/rb/mongoid_form)
 
 It makes your life easy when you develop forms and your app use [mongoid](https://github.com/mongoid/mongoid).
 
